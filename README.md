@@ -129,3 +129,32 @@ Access the WordPress admin dashboard at:
 `http://your-vm-public-ip/wp-admin/index.php`
 
 ---
+
+To generate SSL certificates for WordPress using mkcert on Ubuntu:
+
+Step 1: Install mkcert
+Update your system and install necessary dependencies:
+sudo apt update
+sudo apt install mkcert libnss3-tools -y
+Install mkcert:
+sudo snap install mkcert
+
+Step 2: Create a Local Certificate Authority (CA)
+Run this command to create a local certificate authority:
+mkcert -install
+
+Step 3: Generate SSL Certificates for Your WordPress Domain
+Replace your-domain.com with your domain (or localhost/your VM IP) and run:
+mkcert your-domain.com
+This will create:
+your-domain.com.pem (SSL certificate)
+your-domain.com-key.pem (Private key)
+
+You can also create certificates for multiple domains:
+mkcert your-domain.com www.your-domain.com
+
+Step 4: Move the Certificates
+Move the files to the appropriate directories:
+sudo mv your-domain.com.pem /etc/ssl/certs/
+sudo mv your-domain.com-key.pem /etc/ssl/private/
+Now, you’ve created SSL certificates using mkcert and can proceed to configure your web server with these certificates!
